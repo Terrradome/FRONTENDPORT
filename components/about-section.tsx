@@ -1,119 +1,86 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+
+const experience = [
+  {
+    period: "2023 — Present",
+    role: "Frontend Engineer",
+    company: "Freelance",
+    description: "Building responsive, accessible web applications for various clients using React, Next.js, and TypeScript. Focus on performance optimization and clean code architecture.",
+    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    period: "2022 — 2023",
+    role: "Frontend Developer",
+    company: "Various Projects",
+    description: "Developed multiple production-ready applications including e-commerce platforms and travel applications. Collaborated with designers to implement pixel-perfect interfaces.",
+    skills: ["Vue.js", "JavaScript", "CSS3", "REST APIs"],
+  },
+];
+
 export function AboutSection() {
   return (
     <section id="about" className="px-6 py-32 lg:px-12 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
-        {/* Section Label */}
-        <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
-          About
-        </span>
-
-        <div className="mt-8 grid gap-16 lg:grid-cols-2">
-          {/* Main content */}
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-foreground lg:text-4xl text-balance">
-              A developer passionate about creating exceptional user experiences
+        <div className="grid lg:grid-cols-[1fr,1.2fr] gap-16 lg:gap-24">
+          {/* Left - Section Label */}
+          <div>
+            <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-widest sticky top-32">
+              Experience
             </h2>
-
-            <div className="space-y-5 text-muted-foreground leading-relaxed">
-              <p>
-                I specialize in building responsive, modern web applications using
-                React, Next.js, and TypeScript. My focus is on writing clean,
-                maintainable code while ensuring excellent user experiences across
-                all devices and browsers.
-              </p>
-
-              <p>
-                The intersection of design and engineering is where I thrive. 
-                I believe the best digital products come from understanding both 
-                the technical constraints and the human needs they serve.
-              </p>
-
-              <p>
-                When I'm not coding, I'm exploring new technologies, contributing 
-                to open source, or diving deep into UI/UX best practices to 
-                continuously improve my craft.
-              </p>
-            </div>
           </div>
 
-          {/* Stats & Quick Facts */}
-          <div className="space-y-8">
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-6">
-              <StatCard value="3+" label="Years Experience" />
-              <StatCard value="10+" label="Projects Completed" />
-              <StatCard value="100%" label="Client Satisfaction" />
-              <StatCard value="5+" label="Technologies Mastered" />
-            </div>
+          {/* Right - Content */}
+          <div className="space-y-16">
+            {experience.map((exp, index) => (
+              <article key={index} className="group relative">
+                <div className="grid sm:grid-cols-[140px,1fr] gap-4">
+                  {/* Period */}
+                  <div className="text-sm text-muted-foreground font-mono">
+                    {exp.period}
+                  </div>
 
-            {/* Quick Info */}
-            <div className="border-t border-border pt-8 space-y-4">
-              <InfoRow label="Location" value="Nigeria" />
-              <InfoRow label="Focus" value="Frontend Development" />
-              <InfoRow label="Status" value="Open to opportunities" highlight />
+                  {/* Details */}
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-foreground font-medium">
+                        {exp.role} · {exp.company}
+                      </h3>
+                    </div>
+
+                    <p className="text-muted-foreground leading-relaxed">
+                      {exp.description}
+                    </p>
+
+                    {/* Skills */}
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {exp.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="text-xs font-medium text-foreground bg-secondary px-3 py-1 rounded-full"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+
+            {/* Resume Link */}
+            <div className="pt-8">
+              <Link
+                href="/resume.pdf"
+                className="group inline-flex items-center gap-2 text-foreground font-medium"
+              >
+                View Full Resume
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
             </div>
           </div>
-        </div>
-
-        {/* Philosophy Cards */}
-        <div className="mt-24 grid gap-6 md:grid-cols-3">
-          <PhilosophyCard
-            title="Clean Code"
-            description="Writing readable, maintainable code that other developers can understand and build upon."
-          />
-          <PhilosophyCard
-            title="User First"
-            description="Every decision is guided by how it impacts the end user's experience and accessibility."
-          />
-          <PhilosophyCard
-            title="Continuous Growth"
-            description="Always learning, experimenting with new technologies, and refining my approach."
-          />
         </div>
       </div>
     </section>
-  );
-}
-
-function StatCard({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="p-6 bg-secondary/50 rounded-2xl">
-      <div className="text-3xl font-bold text-foreground">{value}</div>
-      <div className="mt-1 text-sm text-muted-foreground">{label}</div>
-    </div>
-  );
-}
-
-function InfoRow({
-  label,
-  value,
-  highlight = false,
-}: {
-  label: string;
-  value: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div className="flex items-center justify-between py-2">
-      <span className="text-muted-foreground">{label}</span>
-      <span className={highlight ? "font-medium text-emerald-600" : "font-medium text-foreground"}>
-        {value}
-      </span>
-    </div>
-  );
-}
-
-function PhilosophyCard({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="p-8 border border-border rounded-2xl transition-all hover:border-foreground/20 hover:shadow-sm">
-      <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      <p className="mt-3 text-muted-foreground leading-relaxed">{description}</p>
-    </div>
   );
 }

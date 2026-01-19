@@ -1,154 +1,129 @@
 import Link from "next/link";
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 
 const projects = [
   {
     title: "Audiophile E-commerce",
-    tagline: "Premium audio equipment store",
     description:
-      "A fully responsive e-commerce platform for high-end audio equipment. Features product filtering, cart functionality, and a seamless checkout experience.",
+      "A fully responsive e-commerce platform for premium audio equipment. Features product filtering, cart functionality with localStorage persistence, and a complete checkout flow with form validation.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
     github: "https://github.com/elpresidentey/HNGaudiophilereplica",
     demo: null,
-    featured: true,
+    year: "2024",
   },
   {
     title: "DIASPORAN Travel App",
-    tagline: "Travel planning platform",
     description:
-      "A travel application designed to help users discover destinations, plan trips, and explore cultural experiences worldwide.",
+      "A travel application designed to help users discover destinations, plan trips, and explore cultural experiences worldwide. Built with a focus on intuitive navigation and rich visual content.",
     techStack: ["React", "JavaScript", "CSS", "REST APIs"],
     github: "https://github.com/elpresidentey/DIASPORAN",
     demo: null,
-    featured: false,
+    year: "2023",
   },
   {
     title: "HNG TicketMaster",
-    tagline: "Event ticketing application",
     description:
-      "A modern ticketing platform built with Vue.js, allowing users to browse events, select seats, and purchase tickets seamlessly.",
+      "A modern ticketing platform allowing users to browse events, select seats, and purchase tickets. Implemented with Vue.js for reactive UI updates and smooth user interactions.",
     techStack: ["Vue.js", "JavaScript", "CSS3", "GitHub Pages"],
     github: null,
     demo: "https://elpresidentey.github.io/HNGTICKETMASTERVUE/",
-    featured: false,
+    year: "2023",
   },
 ];
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="px-6 py-32 lg:px-12 scroll-mt-20 bg-secondary/30">
+    <section id="projects" className="px-6 py-32 lg:px-12 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
-        {/* Section Label */}
-        <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
-          Selected Work
-        </span>
+        <div className="grid lg:grid-cols-[1fr,1.2fr] gap-16 lg:gap-24">
+          {/* Left - Section Label */}
+          <div>
+            <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-widest sticky top-32">
+              Projects
+            </h2>
+          </div>
 
-        <h2 className="mt-4 text-3xl font-bold text-foreground lg:text-4xl">
-          Projects I've built
-        </h2>
-
-        <p className="mt-4 text-muted-foreground max-w-2xl">
-          A collection of projects that showcase my skills in frontend development, 
-          from e-commerce platforms to interactive applications.
-        </p>
-
-        {/* Projects List */}
-        <div className="mt-16 space-y-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index + 1} />
-          ))}
+          {/* Right - Content */}
+          <div className="space-y-24">
+            {projects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[0];
-  index: number;
-}) {
+function ProjectCard({ project }: { project: (typeof projects)[0] }) {
   const mainLink = project.demo || project.github;
 
   return (
-    <article className="group relative bg-card border border-border rounded-2xl p-8 lg:p-10 transition-all hover:border-foreground/20 hover:shadow-lg">
-      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-        {/* Content */}
-        <div className="flex-1 max-w-2xl">
-          {/* Number & Featured Badge */}
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-mono text-muted-foreground">
-              {String(index).padStart(2, "0")}
-            </span>
-            {project.featured && (
-              <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
-                Featured
-              </span>
-            )}
+    <article className="group">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h3 className="text-xl font-semibold text-foreground group-hover:text-muted-foreground transition-colors">
+              {mainLink ? (
+                <Link
+                  href={mainLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2"
+                >
+                  {project.title}
+                  <ArrowUpRight className="h-4 w-4 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                </Link>
+              ) : (
+                project.title
+              )}
+            </h3>
+            <p className="text-sm text-muted-foreground font-mono mt-1">{project.year}</p>
           </div>
 
-          {/* Title */}
-          <h3 className="text-2xl font-bold text-foreground group-hover:text-foreground/80 transition-colors">
-            {project.title}
-          </h3>
-          
-          <p className="mt-1 text-muted-foreground">{project.tagline}</p>
-
-          {/* Description */}
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            {project.description}
-          </p>
-
-          {/* Tech Stack */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="text-sm text-muted-foreground border border-border px-3 py-1 rounded-full"
+          {/* Links */}
+          <div className="flex items-center gap-3">
+            {project.github && (
+              <Link
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+                aria-label={`View ${project.title} source code on GitHub`}
               >
-                {tech}
-              </span>
-            ))}
+                <Github className="h-5 w-5" />
+              </Link>
+            )}
+            {project.demo && (
+              <Link
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+                aria-label={`View ${project.title} live demo`}
+              >
+                <ArrowUpRight className="h-5 w-5" />
+              </Link>
+            )}
           </div>
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-3 lg:flex-col lg:items-end">
-          {project.github && (
-            <Link
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        {/* Description */}
+        <p className="text-muted-foreground leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2">
+          {project.techStack.map((tech) => (
+            <span
+              key={tech}
+              className="text-xs font-medium text-foreground bg-secondary px-3 py-1 rounded-full"
             >
-              <Github className="h-4 w-4" />
-              <span className="hidden sm:inline">Source</span>
-            </Link>
-          )}
-          {project.demo && (
-            <Link
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ExternalLink className="h-4 w-4" />
-              <span className="hidden sm:inline">Live Demo</span>
-            </Link>
-          )}
-          {mainLink && (
-            <Link
-              href={mainLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-border text-muted-foreground transition-all group-hover:border-foreground group-hover:text-foreground group-hover:bg-foreground group-hover:text-background"
-              aria-label={`View ${project.title}`}
-            >
-              <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-          )}
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
     </article>

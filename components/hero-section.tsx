@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { LiveStatus } from "./live-status";
 
 const socialLinks = [
@@ -24,40 +24,18 @@ const socialLinks = [
 
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#projects", label: "Work" },
-  { href: "#skills", label: "Skills" },
+  { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col">
-      {/* Top Bar - Location, Time & Weather */}
-      <div className="w-full px-6 py-3 lg:px-12 border-b border-border bg-secondary/30">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <LiveStatus />
-          <div className="hidden sm:flex items-center gap-3">
-            {socialLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground hover:bg-secondary"
-                aria-label={link.name}
-              >
-                <link.icon className="h-3.5 w-3.5" />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Navigation */}
-      <header className="w-full px-6 py-5 lg:px-12">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 lg:px-12 py-4 bg-background/80 backdrop-blur-md border-b border-border/50">
         <nav className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-xl font-semibold tracking-tight text-foreground">
-            IEL
+          <Link href="/" className="text-lg font-semibold tracking-tight text-foreground">
+            Iduwe Ekene Leonard
           </Link>
           
           <div className="hidden md:flex items-center gap-8">
@@ -65,68 +43,123 @@ export function HeroSection() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 bg-foreground text-background px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-foreground/90"
-          >
-            Let's talk
-          </Link>
+          <div className="flex items-center gap-1">
+            {socialLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground hover:bg-secondary"
+                aria-label={link.name}
+              >
+                <link.icon className="h-4 w-4" />
+              </Link>
+            ))}
+          </div>
         </nav>
       </header>
 
       {/* Hero Content */}
-      <div className="flex-1 flex items-center px-6 lg:px-12 pb-24">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="max-w-3xl">
-            {/* Status */}
-            <div className="inline-flex items-center gap-2 mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="text-sm text-muted-foreground">Available for work</span>
+      <div className="flex-1 flex items-center px-6 lg:px-12 pt-24">
+        <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1fr,1.2fr] gap-16 lg:gap-24 items-start py-24">
+          {/* Left Column - Identity */}
+          <div className="lg:sticky lg:top-32">
+            <div className="space-y-6">
+              <div>
+                <h1 className="text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+                  Iduwe Ekene Leonard
+                </h1>
+                <p className="mt-3 text-xl text-muted-foreground">
+                  Frontend Engineer
+                </p>
+              </div>
+
+              <p className="text-muted-foreground leading-relaxed max-w-md">
+                I build accessible, pixel-perfect digital experiences for the web.
+              </p>
+
+              {/* Status */}
+              <div className="flex items-center gap-3 text-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span className="text-muted-foreground">Available for work</span>
+              </div>
+
+              {/* Live Status */}
+              <div className="pt-4 border-t border-border">
+                <LiveStatus />
+              </div>
+
+              {/* Navigation Links - Vertical */}
+              <nav className="hidden lg:block pt-8 space-y-4" aria-label="In-page navigation">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="group flex items-center gap-4 text-sm"
+                  >
+                    <span className="h-px w-8 bg-muted-foreground/30 transition-all group-hover:w-16 group-hover:bg-foreground" />
+                    <span className="text-muted-foreground uppercase tracking-widest transition-colors group-hover:text-foreground">
+                      {link.label}
+                    </span>
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Social Links */}
+              <div className="flex items-center gap-4 pt-8">
+                {socialLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                    aria-label={link.name}
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </Link>
+                ))}
+              </div>
             </div>
+          </div>
 
-            {/* Main Headline */}
-            <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl text-balance leading-[1.1]">
-              Frontend Engineer crafting digital experiences
-            </h1>
-
-            {/* Subtitle */}
-            <p className="mt-8 text-xl text-muted-foreground max-w-2xl leading-relaxed">
-              I'm Iduwe Ekene Leonard, a developer focused on building accessible, 
-              performant web applications with clean code and thoughtful design.
+          {/* Right Column - About Preview */}
+          <div className="space-y-8">
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I'm a developer passionate about crafting accessible, pixel-perfect user 
+              interfaces that blend thoughtful design with robust engineering. My favorite 
+              work lies at the intersection of design and development, creating experiences 
+              that not only look great but are meticulously built for performance and usability.
             </p>
 
-            {/* CTA */}
-            <div className="mt-12 flex flex-wrap items-center gap-4">
-              <Link
-                href="#projects"
-                className="inline-flex items-center gap-2 bg-foreground text-background px-6 py-3 rounded-full font-medium transition-all hover:bg-foreground/90"
-              >
-                View my work
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium text-foreground transition-all hover:bg-secondary"
-              >
-                Get in touch
-              </Link>
-            </div>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Currently focused on building responsive, modern web applications using 
+              <span className="text-foreground font-medium"> React</span>, 
+              <span className="text-foreground font-medium"> Next.js</span>, and 
+              <span className="text-foreground font-medium"> TypeScript</span>. I specialize 
+              in translating designs into clean, maintainable code while ensuring excellent 
+              user experiences across all devices and browsers.
+            </p>
+
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              When I'm not coding, you'll find me exploring new technologies, contributing to 
+              open source projects, or diving deep into UI/UX best practices to continuously 
+              improve my craft.
+            </p>
           </div>
         </div>
       </div>
-
-      {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
     </section>
   );
 }
